@@ -11,7 +11,7 @@
     :root {
       --primary: #8e24aa;
       --primary-dark: #6a1b9a;
-      --secondary: #f14c83;
+      --secondary: #ec407a;
       --bg-color: #f8f9fa;
       --card-bg: #ffffff;
       --text: #333333;
@@ -145,34 +145,8 @@
     .btn-success:hover { background-color: #1b5e20; }
     .btn-warning { background-color: var(--warning); color: white; }
     .btn-warning:hover { background-color: #e65100; }
-        .pos-action-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 10px 0;
-    }
-    .pos-action-bar .chip {
-      background: #e0f7fa;
-      padding: 4px 8px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: #006064;
-    }
-    .pos-action-bar .chip:hover {
-      background: #b2ebf2;
-    }
+    .btn-danger { background-color: var(--danger); }
     .btn-danger:hover { background-color: #b71c1c; }
-
-/* Admin‑only button restrictions */
-body[data-admin="false"] .admin-only {
-  opacity: 0.5;
-  pointer-events: none;
-}
-body[data-admin="true"] .admin-only {
-  opacity: 1;
-  pointer-events: auto;
-}
 
     .btn-qty {
       padding: 2px 8px;
@@ -238,7 +212,179 @@ body[data-admin="true"] .admin-only {
     tr.credit-warning { background-color: #fff8e1; }
     tr.credit-danger { background-color: #ffebee; }
 
-    #ticket-print { display: none; }
+    #ticket-print, #ticket-cierre-print { display: none; }
+
+    /* ESTILOS BOTONES ADICIONALES Y OUTLINE */
+    .btn-outline {
+      background-color: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      background-color: #f1f3f5;
+      color: var(--primary-dark);
+      border-color: var(--primary);
+    }
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      border-radius: 6px;
+    }
+
+    /* BARRA RÁPIDA DE OPERACIONES POS */
+    .pos-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      flex-wrap: wrap;
+    }
+
+    .turno-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #c8e6c9;
+    }
+    .turno-pill:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .turno-pill.cerrado {
+      background: #ffebee;
+      color: #b71c1c;
+      border-color: #ffcdd2;
+    }
+
+    .pos-quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* CHIPS DE DESCUENTO Y BILLETES */
+    .discount-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+    .chip-btn {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: #444;
+      padding: 5px 11px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      background: #fdf4ff;
+    }
+    .chip-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* NOTIFICACIONES TOAST */
+    #toast-container {
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+    .toast-msg {
+      pointer-events: auto;
+      background: #263238;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeInToast 0.3s ease;
+      min-width: 250px;
+    }
+    .toast-msg.success { background: #2e7d32; }
+    .toast-msg.warning { background: #e65100; }
+    .toast-msg.danger { background: #c62828; }
+    .toast-msg.info { background: #0288d1; }
+    @keyframes fadeInToast {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TARJETAS DE ÓRDENES EN ESPERA */
+    .orden-espera-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+    .orden-espera-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    /* ESTILOS DE ARQUEO EN TURNO */
+    .grid-turno-resumen {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .turno-card-kpi {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .turno-card-kpi small {
+      display: block;
+      color: #666;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .turno-card-kpi strong {
+      font-size: 1rem;
+      color: var(--primary-dark);
+    }
 
     @media print {
       body.printing-ticket * { visibility: hidden !important; }
@@ -249,6 +395,15 @@ body[data-admin="true"] .admin-only {
       body.printing-ticket #ticket-print th, body.printing-ticket #ticket-print td { padding: 4px 0; border-bottom: 1px dashed #000; text-align: left; }
       body.printing-ticket #ticket-print .text-right { text-align: right; }
       body.printing-ticket #ticket-print .divider { border-bottom: 1px dashed #000; margin: 8px 0; }
+
+      body.printing-cierre * { visibility: hidden !important; }
+      body.printing-cierre #ticket-cierre-print, body.printing-cierre #ticket-cierre-print * { visibility: visible !important; }
+      body.printing-cierre #ticket-cierre-print { display: block !important; position: absolute; left: 0; top: 0; width: 80mm; font-family: monospace; font-size: 12px; padding: 10px; }
+      body.printing-cierre #ticket-cierre-print h2, body.printing-cierre #ticket-cierre-print p { text-align: center; margin: 3px 0; }
+      body.printing-cierre #ticket-cierre-print table { width: 100%; font-size: 11px; margin-top: 10px; border-collapse: collapse; }
+      body.printing-cierre #ticket-cierre-print th, body.printing-cierre #ticket-cierre-print td { padding: 4px 0; border-bottom: 1px dashed #000; text-align: left; }
+      body.printing-cierre #ticket-cierre-print .text-right { text-align: right; }
+      body.printing-cierre #ticket-cierre-print .divider { border-bottom: 1px dashed #000; margin: 8px 0; }
 
       body.printing-inventario header,
       body.printing-inventario nav,
@@ -300,26 +455,13 @@ body[data-admin="true"] .admin-only {
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn btn-warning" onclick="abrirModalCaja()">🏦 Control de Caja</button>
-        <button class="btn admin-only" style="background:#0288d1;" onclick="descargarBackupJSON()">📥 Copia de Seguridad</button>
-        <button class="btn admin-only" style="background:#009688;" onclick="document.getElementById('input-restore-file').click()">📤 Restaurar Datos</button>
+        <button class="btn" style="background:#0288d1;" onclick="descargarBackupJSON()">📥 Copia de Seguridad</button>
+        <button class="btn" style="background:#009688;" onclick="document.getElementById('input-restore-file').click()">📤 Restaurar Datos</button>
         <input type="file" id="input-restore-file" style="display:none;" accept=".json" onchange="restaurarBackupJSON(event)">
         <button id="btn-admin-toggle" class="btn btn-warning" onclick="toggleModoAdmin()">🔒 Modo Admin: Inactivo</button>
         <button class="btn btn-danger" onclick="cerrarSesion()">🚪 Salir</button>
       </div>
     </header>
-    <!-- Acción Bar POS -->
-    <div class="pos-action-bar" style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;">
-      <button class="btn btn-success" id="btn-abrir-turno" onclick="abrirModalCaja()">🔓 Apertura de Turno</button>
-      <button class="btn btn-warning" id="btn-cerrar-turno" onclick="cerrarTurnoPos()">🔒 Cierre de Turno</button>
-      <button class="btn btn-info" id="btn-ordenes-espera" onclick="abrirModalOrdenes()">⏳ Órdenes en Espera</button>
-      <div class="discount-chips" style="display:flex; gap:5px; align-items:center;">
-        <span class="chip" style="padding:4px 8px; background:#e0f7fa; border-radius:12px; cursor:pointer;" onclick="aplicarDescuento(5)">5%</span>
-        <span class="chip" style="padding:4px 8px; background:#e0f7fa; border-radius:12px; cursor:pointer;" onclick="aplicarDescuento(10)">10%</span>
-        <span class="chip" style="padding:4px 8px; background:#e0f7fa; border-radius:12px; cursor:pointer;" onclick="aplicarDescuento(20)">20%</span>
-      </div>
-      <button class="btn btn-secondary" id="btn-reimprimir" onclick="reimprimirUltimoTicket()">🖨 Re‑imprimir Último Ticket</button>
-      <button class="btn btn-danger" id="btn-salida-caja" onclick="salidaDeCaja()">💰 Salida de Caja</button>
-    </div>
 
     <nav>
       <button class="nav-btn active" onclick="switchTab('pos')">🛒 Ventas POS</button>
@@ -411,10 +553,10 @@ body[data-admin="true"] .admin-only {
               <label for="payment-method">Método de Pago:</label>
               <select id="payment-method" class="form-control" onchange="evaluarMetodoPago()">
                 <option value="Efectivo">Efectivo</option>
-                <option value="Transferencia">Transferencia Banco / Qik</option>
+                <option value="Transferencia">Transferencia Banco</option>
                 <option value="Tarjeta">Tarjeta de Crédito/Débito</option>
-                <option value="Crédito">Crédito / Crédito</option>
-                <option value="MIXTO">⚡ Pago Mixto / Combinado</option>
+                <option value="Crédito">Crédito</option>
+                <option value="MIXTO">⚡ Pago Mixto</option>
               </select>
             </div>
 
@@ -939,7 +1081,6 @@ body[data-admin="true"] .admin-only {
     const ADMIN_PASSWORD = 'admin123';
     let isAdmin = false;
     let posCategoriaActual = 'TODAS';
-    document.body.setAttribute('data-admin', 'false');
     const MAX_MONTO = 500000;
 
     let barcodeBuffer = '';
@@ -1026,7 +1167,6 @@ body[data-admin="true"] .admin-only {
           if (btnAdmin) {
             btnAdmin.className = 'btn btn-success';
             btnAdmin.innerText = '🔓 Modo Admin: Activo';
-        document.body.setAttribute('data-admin', 'true');
           }
         }
 
@@ -1144,8 +1284,7 @@ body[data-admin="true"] .admin-only {
         document.getElementById('btn-admin-toggle').innerText = '🔒 Modo Admin: Inactivo';
         alert('Sesión de Administrador cerrada.');
       }
-      document.body.setAttribute('data-admin', isAdmin ? 'true' : 'false');
-        renderClientes();
+      renderClientes();
     }
 
     function parseNumber(val) {
@@ -1734,7 +1873,6 @@ body[data-admin="true"] .admin-only {
 
         alert('Abono procesado correctamente.');
         cerrarModalAbono();
-        document.body.setAttribute('data-admin', isAdmin);
         renderClientes();
       }
     }
